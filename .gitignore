@@ -2,3 +2,7 @@
 
 # Clion IDE files
 .idea/
+
+# compiled (binary) version of solutions
+Day-01/aoc_day01_p1
+Day-01/aoc_day01_p2
