@@ -10,10 +10,10 @@ program aoc_day01_p2
 	! Declare and set constants the AOC day and part
 	integer,parameter :: day = 1, part = 2
 
-	! Declare file related variables
+	! Declare file related variables  //' '//
 	integer :: rows = 0, total_incr=0
 	character(len=*), parameter :: filename = "day01-input.txt"
-	character(len=*), parameter :: error1 = "file: 'day01-input.txt' not found"
+	character(len=*), parameter :: error1 = "file: '"//''//filename//''//"' not found"
 
 	! Output startup message
 	call display_welcome(day,part)
