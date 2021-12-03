@@ -16,7 +16,8 @@ purpose to try a language out!
 
 ## Part ONE:
 
-- Use input file: **day01-input.txt**
+- Use input file: [day01-input.txt](./day01-input.txt)
+- Fortran source code: [aoc_day01_p1.f90](./aoc_day01_p1.f90)
 
 **Task**
 
@@ -47,7 +48,8 @@ gfortran -static-libgcc -o aoc_day01_p1 aoc_day01_p1.f90
 
 ## Part TWO:
 
-- Use input file: **day01-input.txt**
+- Use input file: [day01-input.txt](./day01-input.txt)
+- Fortran source code: [aoc_day01_p2.f90](./aoc_day01_p2.f90)
 
 **Task**
 
