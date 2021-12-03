@@ -4,14 +4,14 @@ See the full AoC 2021 **Day 1** puzzle at the URL: https://adventofcode.com/2021
 
 My personal objective was to solve the puzzle using the [Fortran language](https://fortran-lang.org).
 
-I dont have much experience with *Fortran**, so the source code is more verbose than a simple 
-approach focusing on just solving the puzzel quickly. 
+I dont have much experience with *Fortran*, so the source code is more verbose than perhaps 
+a simple approach might be, just focusing on just solving the puzzle quickly. 
 
 I wanted to learn the use of *functions*, *subroutines*, files handling, arrays, and many 
 other new concepts. The resulting programs are the longest and most complex Fortran programs 
 I have written to date. 
 
-You have to start somewhere - and [AoC Puzzles](https://adventofcode.com/) provide a good 
+You have to start somewhere - and [AoC Puzzles](https://adventofcode.com/) provides a good 
 purpose to try a language out!
 
 ## Part ONE:
@@ -22,7 +22,7 @@ purpose to try a language out!
 **Task**
 
 Count the number of times a depth measurement increases from the previous measurement. 
-(There is no measurement before the first measurement.) In the example given, the 
+There is no measurement before the first measurement. In the example given, the 
 changes are as follows:
 
 ```
@@ -82,3 +82,5 @@ this sliding window increase?
 ```console
 gfortran -static-libgcc -o aoc_day01_p2 aoc_day01_p2.f90
 ```
+
+[Return to the main repo page](../README.md)
