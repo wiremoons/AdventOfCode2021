@@ -8,7 +8,7 @@ here: https://adventofcode.com/2021
 Below links to each days puzzle I have solved so far:
 
 - [Day One - solved using Fortran](./Day-01/Day01-Puzzle.md)
-
+- [Day Two - solved using Fortran](./Day-02/Day02-Puzzle.md)
 
 
 ## License
