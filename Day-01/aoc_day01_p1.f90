@@ -13,14 +13,14 @@ program aoc_day01_p1
 	! Declare file related variables
 	integer :: rows = 0, total_incr=0
 	character(len=*), parameter :: filename = "day01-input.txt"
-	character(len=*), parameter :: error1 = "file: 'day01-input.txt' not found"
+	character(len=*), parameter :: error1 = "file: '"//''//filename//''//"' not found"
 
 	! Output startup message
 	call display_welcome(day,part)
 
 	if (.NOT. file_exists(filename)) stop error1
 	rows = get_row_count(filename)
-	total_incr = get_depth_Increase_count(filename,rows)
+	total_incr = get_depth_increase_count(filename,rows)
 	
 	! Display the number rows in the input file
 	write(*,'(A,I4.4)') " » Number of sonar readings: ",rows
@@ -65,7 +65,7 @@ contains
 	end function get_row_count
 	
 	! Solve the problem : total number of depth increases for each sonar reading 
-	function get_depth_Increase_count(filename,rows) result (total_incr)
+	function get_depth_increase_count(filename,rows) result (total_incr)
 		implicit none
 		character(len=*), intent(in) :: filename
 		integer :: fileunit,io,rows
@@ -78,6 +78,6 @@ contains
 		close(fileunit)
 		total_incr = count(input(1:rows-1).LT.input(2:rows))
 		deallocate(input)
-	end function get_depth_Increase_count
+	end function get_depth_increase_count
 
 end program aoc_day01_p1
