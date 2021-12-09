@@ -52,7 +52,7 @@ gfortran -static-libgcc -o aoc_day04_p1 aoc_day04_p1.f90
 
 ## Part TWO:
 
-- Use input file: [day01-input.txt](./day01-input.txt)
+- Use input file: [day04-input.txt](./day04-input.txt)
 - Fortran source code: [aoc_day04_p2.f90](./aoc_day04_p2.f90)
 
 **Task**

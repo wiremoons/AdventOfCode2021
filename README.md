@@ -11,7 +11,10 @@ Below links to each days puzzle I have solved so far:
 - [Day Two - solved using Fortran](./Day-02/Day02-Puzzle.md)
 - [Day Three - solved using Fortran and TypeScript](./Day-03/Day03-Puzzle.md)
 - [Day Four - solved using Fortran](./Day-04/Day04-Puzzle.md)
-
+- [Day Five - solved using Fortran](./Day-05/Day05-Puzzle.md)
+- [Day Six - solved using Fortran](./Day-06/Day06-Puzzle.md)
+- [Day Seven - solved using Fortran](./Day-07/Day07-Puzzle.md)
+- [Day Eight - solved using Fortran](./Day-08/Day08-Puzzle.md)
 
 ## License
 
