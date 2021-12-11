@@ -1,6 +1,6 @@
 #!/usr/bin/env -S deno run --quiet --allow-read=./
 /**
- * @file aoc_day3_p2.ts
+ * @file aoc_day03_p2.ts
  * @brief Advent of Code (AOC) 2021 Puzzle solution for:  Day 3 Part 2.
  *
  * @author simon rowe <simon@wiremoons.com>
@@ -11,7 +11,7 @@
  * @details Advent of Code (AOC) 2021 Puzzle solution. See: https://adventofcode.com/2021/
  *
  * @note The program can be run with Deno using the command:
- * @code deno run --quiet --allow-read --allow-write --allow-env --allow-run ./aoc_day3_p2.ts
+ * @code deno run --quiet --allow-read --allow-write --allow-env --allow-run ./aoc_day03_p2.ts
  */
 
 //--------------------------------
