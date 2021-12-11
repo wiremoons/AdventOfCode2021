@@ -81,7 +81,7 @@ gfortran -static-libgcc -o aoc_day03_p1 aoc_day03_p1.f90
 ## Part TWO:
 
 - Use input file: [day03-input.txt](./part2/day03-input.txt)
-- TypeScript source code for [Deno](https://deno.land/): [aoc_day03_p2.ts](./part1/aoc_day03_p2.ts)
+- TypeScript source code for [Deno](https://deno.land/) runtime: [aoc_day03_p2.ts](./part2/aoc_day03_p2.ts)
 
 **Task**
 
