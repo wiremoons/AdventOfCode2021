@@ -31,10 +31,80 @@ const inputFile = `./day${aocDay}-input.txt`;
 // Puzzle data 'TEST' input only:
 //const inputFile = `./day${aocDay}-TEST-input.txt`;
 
+// puzzle answer
+let riskCount = 0;
+
+// number of low points found
+let lowCount = 0;
+
+// input data array of cave 'row' and 'col' in a 2d array (matrix)
+let caveMap:number[][] = [];
+
 //--------------------------------
 // FUNCTIONS
 //--------------------------------
 
+// Part 1 : Obtain all cave low points and their risk value
+function getLowPoints(caveMap:number[][]) {
+
+    (caveMap.map((row, row_index) => {
+
+        //console.debug(`\n\nNEW ROW: item: ${row_index} : ${row}`)
+
+        row.forEach((rowValue, col_index) => {
+
+            //console.debug(`\nCol: ${col_index} Row: ${row_index} = Value ${rowValue}`);
+
+            // track checking of different numbers
+            const checks = [NaN, NaN, NaN, NaN, NaN];
+
+            // check value in column above
+            if (row_index > 0) {
+                const valAbove = caveMap[row_index - 1][col_index]
+                //console.debug(`Column ABOVE: ${valAbove}`);
+                rowValue < valAbove ? checks[0] = 1 : checks[0] = 0;
+                //console.debug(`${rowValue} < ${valAbove} is ${checks}`);
+            }
+            // check value in column below
+            if (caveMap.length - 1 > row_index) {
+                const valBelow = caveMap[row_index + 1][col_index]
+                //console.debug(`Column BELOW: ${valBelow}`);
+                rowValue < valBelow ? checks[1] = 1 : checks[1] = 0;
+                //console.debug(`${rowValue} < ${valBelow} is ${checks}`);
+            }
+            // check value in row_index position after
+            if (col_index < row.length - 1) {
+                const valAfter = caveMap[row_index][col_index + 1];
+                //console.debug(`Element AFTER: ${valAfter}`);
+                rowValue < valAfter ? checks[2] = 1 : checks[2] = 0;
+                //console.debug(`${rowValue} < ${valAfter} is ${checks}`);
+            }
+            // check value in row_index position before
+            if (col_index > 0) {
+                const valBefore = caveMap[row_index][col_index - 1];
+                //console.debug(`Element BEFORE: ${valBefore}`);
+                rowValue < valBefore ? checks[3] = 1 : checks[3] = 0;
+                //console.debug(`${rowValue} < ${valBefore} is ${checks}`);
+            }
+            // check if current value is zero
+            if (rowValue === 0) {
+                checks[4] = 4;  // if '0' then automatically lower!
+                //console.debug(`ELEMENT: ${rowValue} === '0' is ${checks}`);
+            }
+
+            // remove any remaining 'NaN' and sum up checks
+            const checksSum = checks.filter(x => !isNaN(x)).reduce((a, b) => a + b, 0);
+
+            //console.debug(`Check Sum : ${checksSum} and Check: ${checks.filter(x => !isNaN(x)).length}`);
+            if (checksSum >= checks.filter(x => !isNaN(x)).length) {
+                //console.debug(`Low point ${rowValue} at position row: ${row_index} and col: ${col_index}`);
+                riskCount = riskCount + (rowValue + 1);
+                lowCount = lowCount + 1;
+            }
+            //console.debug(`Current risk count: ${riskCount}`);
+        })
+    }));
+}
 
 //--------------------------------
 // MAIN
@@ -57,68 +127,14 @@ if (import.meta.main) {
     // convert lines into an array per line
     const lineArray = Array.from(lines);
     // split array of lines into individual numbers in their own array
-    const caveMap = lineArray.map((line) => line.split("").map(Number));
+    caveMap = lineArray.map((line) => line.split("").map(Number));
 
-    // puzzle answer
-    let riskCount = 0;
+    console.log(`Checking '${caveMap.length}' rows of puzzle input data...`);
 
-    console.log(`Checking '${caveMap.length}' rows of puzzle input data...\n`);
+    // get all low points and their risk count for part one
+    getLowPoints(caveMap);
 
-    (caveMap.map((item,idx_col) =>{
-
-        //console.debug(`\n\nNEW ROW: item: ${idx_col} : ${item}`)
-
-        item.forEach((element, idx) => {
-
-            //console.debug(`\nIdx_Col: ${idx_col} Idx: ${idx} = Value ${element}`);
-
-            // track checking of different numbers
-            const checks = [NaN,NaN,NaN,NaN,NaN];
-
-            // check value in column above
-            if (idx_col > 0) {
-                const valAbove = caveMap[idx_col - 1][idx]
-                //console.debug(`Column ABOVE: ${valAbove}`);
-                element < valAbove  ? checks[0] = 1 : checks[0] = 0;
-                //console.debug(`${element} < ${valAbove} is ${checks}`);
-            }
-            // check value in column below
-            if (caveMap.length - 1 > idx_col) {
-                const valBelow = caveMap[idx_col + 1][idx]
-                //console.debug(`Column BELOW: ${valBelow}`);
-                element  < valBelow ? checks[1] = 1 : checks[1] = 0;
-                //console.debug(`${element} < ${valBelow} is ${checks}`);
-            }
-            // check value in row position after
-            if (idx < item.length -1) {
-                const valAfter = caveMap[idx_col][idx + 1];
-                //console.debug(`Element AFTER: ${valAfter}`);
-                element < valAfter ? checks[2] = 1 : checks[2] = 0;
-                //console.debug(`${element} < ${valAfter} is ${checks}`);
-            }
-            // check value in row position before
-            if (idx > 0) {
-                const valBefore = caveMap[idx_col][idx - 1];
-                //console.debug(`Element BEFORE: ${valBefore}`);
-                element < valBefore ? checks[3] = 1 : checks[3] = 0;
-                //console.debug(`${element} < ${valBefore} is ${checks}`);
-            }
-            // check if current value is zero
-            if (element === 0) {
-                checks[4] = 4;  // if '0' then automatically lower!
-                //console.debug(`ELEMENT: ${element} === '0' is ${checks}`);
-            }
-
-            // remove any remaining 'NaN' and sum up checks
-            const checksSum = checks.filter(x => !isNaN(x)).reduce((a, b) => a + b, 0);
-
-            //console.debug(`Check Sum : ${checksSum} and Check: ${checks.filter(x => !isNaN(x)).length}`);
-            if (checksSum >= checks.filter(x => !isNaN(x)).length ) riskCount = riskCount + (element + 1);
-            //console.debug(`Current risk count: ${riskCount}`);
-
-        })
-    }));
-
+    console.log(` » Number of low points found: ${lowCount}`);
     console.log(` » Part 1: Risk levels of height map low points: ${riskCount}\n`);
-
+    console.log("\n")
 }
