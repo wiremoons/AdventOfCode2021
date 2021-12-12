@@ -3,6 +3,9 @@
 # Clion IDE files
 .idea/
 
+# FPM build
+build/
+
 # compiled (binary) version of solutions
 Day-??/aoc_day??_p1
 Day-??/aoc_day??_p2
