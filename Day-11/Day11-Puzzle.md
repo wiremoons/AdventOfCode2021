@@ -1,181 +1,79 @@
 # Advent of Code 2021
 
-See the full AoC 2021 **Day 8** puzzle at the URL: https://adventofcode.com/2021/day/8
+See the full AoC 2021 **Day 11** puzzle at the URL: https://adventofcode.com/2021/day/8
 
 ## Part ONE:
 
-- Use input file: [day08-input.txt](./day08-input.txt)
-- Fortran source code: [aoc_day08_p1.f90](./aoc_day08_p1.f90)
+- Use input file: [day11-input.txt](./day11-input.txt)
+- TypeScript (Deno) source code: [aoc_day11_p1.ts](./aoc_day11_p1.ts)
 
 **Task**
 
-As your submarine slowly makes its way through the cave system, you notice that 
-the four-digit seven-segment displays in your submarine are malfunctioning; they 
-must have been damaged during the escape. You'll be in a lot of trouble without 
-them, so you'd better figure out what's wrong.
+You enter a large cavern full of rare bioluminescent dumbo octopuses! They seem to not like the Christmas lights on your
+submarine, so you turn them off for now.
 
-Each digit of a seven-segment display is rendered by turning on or off any of 
-seven segments named a through g:
+There are 100 octopuses arranged neatly in a 10 by 10 grid. Each octopus slowly gains energy over time and flashes
+brightly for a moment when its energy is full. Although your lights are off, maybe you could navigate through the cave
+without disturbing the octopuses if you could predict when the flashes of light will happen.
+
+Each octopus has an energy level - your submarine can remotely measure the energy level of each octopus (your puzzle
+input). For example:
 ```
-  0:      1:      2:      3:      4:
- aaaa    ....    aaaa    aaaa    ....
-b    c  .    c  .    c  .    c  b    c
-b    c  .    c  .    c  .    c  b    c
- ....    ....    dddd    dddd    dddd
-e    f  .    f  e    .  .    f  .    f
-e    f  .    f  e    .  .    f  .    f
- gggg    ....    gggg    gggg    ....
-
-  5:      6:      7:      8:      9:
- aaaa    aaaa    aaaa    aaaa    aaaa
-b    .  b    .  .    c  b    c  b    c
-b    .  b    .  .    c  b    c  b    c
- dddd    dddd    ....    dddd    dddd
-.    f  e    f  .    f  e    f  .    f
-.    f  e    f  .    f  e    f  .    f
- gggg    gggg    ....    gggg    gggg
+5483143223
+2745854711
+5264556173
+6141336146
+6357385478
+4167524645
+2176841721
+6882881134
+4846848554
+5283751526
 ```
-So, to render a 1, only segments c and f would be turned on; the rest would be off. To 
-render a 7, only segments a, c, and f would be turned on.
 
-The problem is that the signals which control the segments have been
-mixed up on each display. The submarine is still trying to display
-numbers by producing output on signal wires a through g, but those wires
-are connected to segments randomly. Worse, the wire/segment connections
-are mixed up separately for each four-digit display! (All of the digits
-within a display use the same connections, though.)
+The energy level of each octopus is a value between 0 and 9. Here, the top-left octopus has an energy level of 5, the
+bottom-right one has an energy level of 6, and so on.
 
-So, you might know that only signal wires b and g are turned on, but
-that doesn't mean segments b and g are turned on: the only digit that
-uses two segments is 1, so it must mean segments c and f are meant to be
-on. With just that information, you still can't tell which wire (b/g)
-goes to which segment (c/f). For that, you'll need to collect more
-information.
+You can model the energy levels and flashes of light in steps. During a single step, the following occurs:
 
-For each display, you watch the changing signals for a while, make a
-note of all ten unique signal patterns you see, and then write down a
-single four digit output value (your puzzle input). Using the signal
-patterns, you should be able to work out which pattern corresponds to
-which digit.
+First, the energy level of each octopus increases by 1. Then, any octopus with an energy level greater than 9 flashes.
+This increases the energy level of all adjacent octopuses by 1, including octopuses that are diagonally adjacent. If
+this causes an octopus to have an energy level greater than 9, it also flashes. This process continues as long as new
+octopuses keep having their energy level increased beyond 9. (An octopus can only flash at most once per step.)
+Finally, any octopus that flashed during this step has its energy level set to 0, as it used all of its energy to flash.
+Adjacent flashes can cause an octopus to flash on a step even if it begins that step with very little energy.
 
-For example, here is what you might see in a single entry in your notes:
-```
-acedgfb cdfbe gcdfa fbcad dab cefabd cdfgeb eafb cagedb ab |
-cdfeb fcadb cdfeb cdbaf
-```
-(The entry is wrapped here to two lines so it fits; in your notes, it will all be on a single line.)
+After 100 steps, there have been a total of 1656 flashes.
 
-Each entry consists of ten unique signal patterns, a | delimiter, and
-finally the four digit output value. Within an entry, the same
-wire/segment connections are used (but you don't know what the
-connections actually are). The unique signal patterns correspond to the
-ten different ways the submarine tries to render a digit using the
-current wire/segment connections. Because 7 is the only digit that uses
-three segments, dab in the above example means that to render a 7,
-signal lines d, a, and b are on. Because 4 is the only digit that uses
-four segments, eafb means that to render a 4, signal lines e, a, f, and
-b are on.
+Given the starting energy levels of the dumbo octopuses in your cavern, simulate 100 steps.
 
-Using this information, you should be able to work out which combination
-of signal wires corresponds to each of the ten digits. Then, you can
-decode the four digit output value. Unfortunately, in the above example,
-all of the digits in the output value (cdfeb fcadb cdfeb cdbaf) use five
-segments and are more difficult to deduce.
+**Answer needed** : How many total flashes are there after 100 steps?
 
-For now, focus on the easy digits. Consider this larger example:
-```
-be cfbegad cbdgef fgaecd cgeb fdcge agebfd fecdb fabcd edb | fdgacbe cefdb cefbgd gcbe
-edbfga begcd cbg gc gcadebf fbgde acbgfd abcde gfcbed gfec | fcgedb cgb dgebacf gc
-fgaebd cg bdaec gdafb agbcfd gdcbef bgcad gfac gcb cdgabef | cg cg fdcagb cbg
-fbegcd cbd adcefb dageb afcb bc aefdc ecdab fgdeca fcdbega | efabcd cedba gadfec cb
-aecbfdg fbg gf bafeg dbefa fcge gcbea fcaegb dgceab fcbdga | gecf egdcabf bgf bfgea
-fgeab ca afcebg bdacfeg cfaedg gcfdb baec bfadeg bafgc acf | gebdcfa ecba ca fadegcb
-dbcfg fgd bdegcaf fgec aegbdf ecdfab fbedc dacgb gdcebf gf | cefg dcbef fcge gbcadfe
-bdfegc cbegaf gecbf dfcage bdacg ed bedf ced adcbefg gebcd | ed bcgafe cdgba cbgef
-egadfb cdbfeg cegd fecab cgb gbdefca cg fgcdab egfdb bfceg | gbdfcae bgc cg cgb
-gcafb gcf dcaebfg ecagb gf abcdeg gaef cafbge fdbac fegbdc | fgae cfgab fg bagce
-```
-Because the digits 1, 4, 7, and 8 each use a unique number of segments,
-you should be able to tell which combinations of signals correspond to
-those digits. Counting only digits in the output values (the part after
-| on each line), in the above example, there are 26 instances of digits
-that use a unique number of segments (highlighted above).
+**Run the TypeScript (Deno) Source Code**
 
-**Anser needed** : In the output values, how many times do digits 1, 4, 7, or 8 appear?
-
-**Build the Fortran Source Code**
+Make sure [Deno](https://deno.land/) is installed and in your path, then on Linux or macOS:
 ```console
-gfortran -static-libgcc -o aoc_day08_p1 aoc_day08_p1.f90
+chmod 755 aoc_day11_p1.ts
+./aoc_day11_p1.ts
 ```
 
 ## Part TWO:
 
-- Use input file: [day08-input.txt](./day08-input.txt)
-- Fortran source code: [aoc_day08_p2.f90](./aoc_day08_p2.f90)
+- Use input file: [day11-input.txt](./day11-input.txt)
+- TypeScript (Deno) source code: [aoc_day11_p2.ts](./aoc_day11_p2.ts)
 
 **Task**
 
-Through a little deduction, you should now be able to determine the
-remaining digits. Consider again the first example above:
-```
-acedgfb cdfbe gcdfa fbcad dab cefabd cdfgeb eafb cagedb ab | cdfeb fcadb cdfeb cdbaf
-```
-After some careful analysis, the mapping between signal wires and segments only make sense in the following configuration:
-```
- dddd
-e    a
-e    a
- ffff
-g    b
-g    b
- cccc
-```
-So, the unique signal patterns would correspond to the following digits:
-```
-acedgfb: 8
-cdfbe: 5
-gcdfa: 2
-fbcad: 3
-dab: 7
-cefabd: 9
-cdfgeb: 6
-eafb: 4
-cagedb: 0
-ab: 1
-```
-Then, the four digits of the output value can be decoded:
-```
-cdfeb: 5
-fcadb: 3
-cdfeb: 5
-cdbaf: 3
-```
-Therefore, the output value for this entry is 5353.
 
-Following this same process for each entry in the second, larger example
-above, the output value of each entry can be determined:
-```
-fdgacbe cefdb cefbgd gcbe: 8394
-fcgedb cgb dgebacf gc: 9781
-cg cg fdcagb cbg: 1197
-efabcd cedba gadfec cb: 9361
-gecf egdcabf bgf bfgea: 4873
-gebdcfa ecba ca fadegcb: 8418
-cefg dcbef fcge gbcadfe: 4548
-ed bcgafe cdgba cbgef: 1625
-gbdfcae bgc cg cgb: 8717
-fgae cfgab fg bagce: 4315
-```
-Adding all of the output values in this larger example produces 61229.
 
-For each entry, determine all of the wire/segment connections and decode
-the four-digit output values. 
+**Answer needed** : 
 
-**Anser needed** : What do you get if you add up all of the output values?
+**Run the TypeScript (Deno) Source Code**
 
-**Build the Fortran Source Code**
+Make sure [Deno](https://deno.land/) is installed and in your path, then on Linux or macOS:
 ```console
-gfortran -static-libgcc -o aoc_day08_p2 aoc_day08_p2.f90
+chmod 755 aoc_day11_p2.ts
+./aoc_day11_p2.ts
 ```
 
 [Return to the main repo page](../README.md)
