@@ -27,9 +27,9 @@ import {existsFile} from "https://deno.land/x/deno_mod@0.7.4/mod.ts";
 const aocDay = "09"
 const aocPart = "02"
 // Puzzle data:
-const inputFile = `./day${aocDay}-input.txt`;
+//const inputFile = `./day${aocDay}-input.txt`;
 // Puzzle data 'TEST' input only:
-//const inputFile = `./day${aocDay}-TEST-input.txt`;
+const inputFile = `./day${aocDay}-TEST-input.txt`;
 
 // used to track checked cave point locations
 type CavePosition = {
@@ -105,14 +105,19 @@ function getLowPoints(caveMap:number[][], lowPoints:CavePosition[] ) {
             //console.debug(`Check Sum : ${checksSum} and Check: ${checks.filter(x => !isNaN(x)).length}`);
             if (checksSum >= checks.filter(x => !isNaN(x)).length) {
                 //console.log(`Low point ${rowValue} at position row: ${row_index} and col: ${col_index}`);
+
                 // gather the lowPoint array data needed
-                const lowPointsCollection: CavePosition = {
-                    point: rowValue,
-                    col: row_index,
-                    row: col_index,
-                    checked: 0
-                };
-                lowPoints.push(lowPointsCollection);
+                // const lowPointsCollection: CavePosition = {
+                //     point: rowValue,
+                //     col: row_index,
+                //     row: col_index,
+                //     checked: 0
+                // };
+                // lowPoints.push(lowPointsCollection);
+                // NB : above commented lines refactored to:
+                lowPoints.push({ "point": rowValue, "col": row_index, "row": col_index, "checked": 0});
+                //console.log(lowPoints);
+
                 lowCount = lowCount + 1;
             }
             //console.debug(`Current risk count: ${riskCount}`);
@@ -150,7 +155,7 @@ if (import.meta.main) {
 
     // display found cave low points and the col & row position
     lowPoints.map((values, idx) => {
-        //console.log(`Mapping low point '${idx + 1} of ${lowPoints.length}' : Value '${values.point}' at col '${values.col}' & row '${values.row}'`);
+        console.log(`Mapping low point '${idx + 1} of ${lowPoints.length}' : Value '${values.point}' at col '${values.col}' & row '${values.row}'`);
     });
 
     console.log(` » Part 2: total basin low points found to map: ${lowPoints.length}`);
