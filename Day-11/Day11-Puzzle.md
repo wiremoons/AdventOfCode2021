@@ -18,6 +18,7 @@ without disturbing the octopuses if you could predict when the flashes of light 
 
 Each octopus has an energy level - your submarine can remotely measure the energy level of each octopus (your puzzle
 input). For example:
+
 ```
 5483143223
 2745854711
@@ -39,9 +40,9 @@ You can model the energy levels and flashes of light in steps. During a single s
 First, the energy level of each octopus increases by 1. Then, any octopus with an energy level greater than 9 flashes.
 This increases the energy level of all adjacent octopuses by 1, including octopuses that are diagonally adjacent. If
 this causes an octopus to have an energy level greater than 9, it also flashes. This process continues as long as new
-octopuses keep having their energy level increased beyond 9. (An octopus can only flash at most once per step.)
-Finally, any octopus that flashed during this step has its energy level set to 0, as it used all of its energy to flash.
-Adjacent flashes can cause an octopus to flash on a step even if it begins that step with very little energy.
+octopuses keep having their energy level increased beyond 9. (An octopus can only flash at most once per step.) Finally,
+any octopus that flashed during this step has its energy level set to 0, as it used all of its energy to flash. Adjacent
+flashes can cause an octopus to flash on a step even if it begins that step with very little energy.
 
 After 100 steps, there have been a total of 1656 flashes.
 
@@ -52,6 +53,7 @@ Given the starting energy levels of the dumbo octopuses in your cavern, simulate
 **Run the TypeScript (Deno) Source Code**
 
 Make sure [Deno](https://deno.land/) is installed and in your path, then on Linux or macOS:
+
 ```console
 chmod 755 aoc_day11_p1.ts
 ./aoc_day11_p1.ts
@@ -64,13 +66,12 @@ chmod 755 aoc_day11_p1.ts
 
 **Task**
 
-
-
-**Answer needed** : 
+**Answer needed** :
 
 **Run the TypeScript (Deno) Source Code**
 
 Make sure [Deno](https://deno.land/) is installed and in your path, then on Linux or macOS:
+
 ```console
 chmod 755 aoc_day11_p2.ts
 ./aoc_day11_p2.ts
