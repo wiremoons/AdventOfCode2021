@@ -1,17 +1,17 @@
 #!/usr/bin/env -S deno run --quiet --allow-read=./
 /**
- * @file aoc_day11_p1.ts
- * @brief Advent of Code (AOC) 2021 Puzzle solution for:  Day 9 Part 1.
+ * @file aoc_day14_p1.ts
+ * @brief Advent of Code (AOC) 2021 Puzzle solution for:  Day 14 Part 1.
  *
  * @author simon rowe <simon@wiremoons.com>
  * @license open-source released under "MIT License"
  *
- * @date originally created: 11 Dec 2021
+ * @date originally created: 17 Dec 2021
  *
  * @details Advent of Code (AOC) 2021 Puzzle solution. See: https://adventofcode.com/2021/
  *
  * @note The program can be run with Deno using the command:
- * @code deno run --quiet --allow-read ./aoc_day11_p1.ts
+ * @code deno run --quiet --allow-read ./aoc_day14_p1.ts
  */
 
 //--------------------------------
@@ -28,7 +28,7 @@ if (import.meta.main) {
   // APPLICATION CONFIGURATION
   //********************************
   // define the base location for Deno application directories:
-  const aocDay = "11";
+  const aocDay = "14";
   const aocPart = "01";
 
   // SET INPUT PUZZLE DATA FILE NAME:
