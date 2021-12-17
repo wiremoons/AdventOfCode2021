@@ -1,7 +1,7 @@
 #!/usr/bin/env -S deno run --quiet --allow-read=./
 /**
  * @file aoc_day11_p1.ts
- * @brief Advent of Code (AOC) 2021 Puzzle solution for:  Day 9 Part 1.
+ * @brief Advent of Code (AOC) 2021 Puzzle solution for:  Day 11 Part 1.
  *
  * @author simon rowe <simon@wiremoons.com>
  * @license open-source released under "MIT License"
