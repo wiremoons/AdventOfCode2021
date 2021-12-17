@@ -16,6 +16,11 @@ Below links to each days puzzle I have solved so far:
 - [Day Seven - solved using Fortran](./Day-07/Day07-Puzzle.md)
 - [Day Eight - solved using Fortran](./Day-08/Day08-Puzzle.md)
 - [Day Nine - solved using TypeScript (Deno)](./Day-09/Day09-Puzzle.md)
+- [Day Ten - solved using TypeScript (Deno)](./Day-10/Day10-Puzzle.md)
+- [Day Eleven - solved using TypeScript (Deno)](./Day-11/Day11-Puzzle.md)
+- [Day Twelve - solved using TypeScript (Deno)](./Day-12/Day12-Puzzle.md)
+- [Day Thirteen - solved using TypeScript (Deno)](./Day-13/Day13-Puzzle.md)
+- [Day Fourteen - solved using TypeScript (Deno)](./Day-14/Day14-Puzzle.md)
 
 ## License
 
