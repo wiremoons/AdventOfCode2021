@@ -1,17 +1,17 @@
 #!/usr/bin/env -S deno run --quiet --allow-read=./
 /**
- * @file aoc_day11_p1.ts
- * @brief Advent of Code (AOC) 2021 Puzzle solution for:  Day 11 Part 1.
+ * @file aoc_day11_p2.ts
+ * @brief Advent of Code (AOC) 2021 Puzzle solution for:  Day 11 Part 2.
  *
  * @author simon rowe <simon@wiremoons.com>
  * @license open-source released under "MIT License"
  *
- * @date originally created: 11 Dec 2021
+ * @date originally created: 19 Dec 2021
  *
  * @details Advent of Code (AOC) 2021 Puzzle solution. See: https://adventofcode.com/2021/
  *
  * @note The program can be run with Deno using the command:
- * @code deno run --quiet --allow-read ./aoc_day11_p1.ts
+ * @code deno run --quiet --allow-read ./aoc_day11_p2.ts
  */
 
 //--------------------------------
@@ -29,13 +29,13 @@ if (import.meta.main) {
   //********************************
   // define the base location for Deno application directories:
   const aocDay = "11";
-  const aocPart = "01";
+  const aocPart = "02";
 
   // SET INPUT PUZZLE DATA FILE NAME:
   // Puzzle data:
-  //const inputFile = `./day${aocDay}-input.txt`;
+  const inputFile = `./day${aocDay}-input.txt`;
   // Puzzle data 'TEST':
-  const inputFile = `./day${aocDay}-TEST-input.txt`;
+  //const inputFile = `./day${aocDay}-TEST-input.txt`;
   //********************************
 
   // Display startup message
@@ -64,7 +64,8 @@ if (import.meta.main) {
   let flashTotal = 0;
   let stillFlashes = true;
 
-  while (count <= 100) {
+  // changed below for Part 2 - keep looping until all have flashed at the same time
+  while (!checkAllFlashed(octoMap)) {
     octoMap = incrementOctopus(octoMap);
     //console.debug("-->  NEW INCREMENTED MAP  <--");
     //console.table(octoMap);
@@ -73,6 +74,7 @@ if (import.meta.main) {
     // check for any flash candidates
     stillFlashes = octoFlashesLeft(octoMap);
 
+    // keep processing octopus array 'octomap' until all flashes have been handled
     while (stillFlashes) {
       octoMap = upDateRowColNeighbours(octoMap);
       stillFlashes = octoFlashesLeft(octoMap);
@@ -80,11 +82,12 @@ if (import.meta.main) {
 
     //console.debug("\nDONE STATE:");
     //console.table(octoMap);
+
+    // get the current flash count for this loop and add to the runing total
     flashTotal = flashTotal + getTotalFlashes(octoMap);
 
     //console.debug(`Current flash count: ${flashTotal}`);
     //console.debug(` --> LOOP COUNT COMPLETED: ${count}\n\n`);
-
     count++;
   } // end main while
 
@@ -179,8 +182,7 @@ function upDateRowColNeighbours(octoMap: number[][]): number[][] {
       //console.debug(`No neighbour updates required for value = ${newOctoMap[row][col]}. Index: ${row},${col}`);
     });
   });
-  // done neighbour updates
-  //console.debug("NEIGHBOUR UPDATE: completed updates are:");
+  ////console.debug("NEIGHBOUR UPDATE: completed updates are:");
   //console.table(newOctoMap);
   return newOctoMap;
 }
@@ -198,4 +200,25 @@ function getTotalFlashes(octoMap: number[][]): number {
     });
   });
   return allFlashes;
+}
+
+/**
+ * Check the octopus flash counts to see if they has all flashed at the same time - PART 2
+ * @param  octoMap array of the octopus flash counts
+ * @return boolean indicating if all octopuses have flashed
+ */
+function checkAllFlashed(octoMap: number[][]): boolean {
+  // set to a known state
+  let result = true;
+
+  octoMap.map((rv) => {
+    rv.map((cv) => {
+      // check for a flashed octopus
+      if (cv > 1) {
+        result = false;
+      }
+    });
+  });
+
+  return result;
 }
