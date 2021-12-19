@@ -1,6 +1,6 @@
 name = "aoc_day14"
 version = "0.1.0"
-description = "Advent of Code 2021 Puzzle for Day 11 Part 1 and Part 2"
+description = "Advent of Code 2021 Puzzle for Day 14 Part 1 and Part 2"
 license = "MIT"
 author = "Simon Rowe"
 maintainer = "simon@wiremoons.com"
