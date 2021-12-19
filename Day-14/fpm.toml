@@ -1,0 +1,28 @@
+name = "aoc_day14"
+version = "0.1.0"
+description = "Advent of Code 2021 Puzzle for Day 11 Part 1 and Part 2"
+license = "MIT"
+author = "Simon Rowe"
+maintainer = "simon@wiremoons.com"
+copyright = "Copyright 2021, Simon Rowe"
+
+[[ executable ]]
+name = "aoc_day14_p1"
+source-dir = "app"
+main = "aoc_day14_p1.f90"
+
+[[ executable ]]
+name = "aoc_day14_p2"
+source-dir = "app"
+main = "aoc_day14_p2.f90"
+
+[build]
+auto-executables = true
+auto-tests = true
+auto-examples = true
+
+[install]
+library = false
+
+[dependencies]
+stdlib = { git="https://github.com/fortran-lang/stdlib", branch="stdlib-fpm" }
