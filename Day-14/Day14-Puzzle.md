@@ -80,7 +80,7 @@ least common element (H, 161) produces 1749 - 161 = 1588.
 Apply 10 steps of pair insertion to the polymer template and find the
 most and least common elements in the result. 
 
-**Anser needed** : What do you get if you take the quantity of the most
+**Answer needed** : What do you get if you take the quantity of the most
 common element and subtract the quantity of the least common element?
 
 **Build the Fortran Source Code**
@@ -100,7 +100,7 @@ fpm run aoc_day14_p1
 **Task**
 
 
-**Anser needed** : 
+**Answer needed** : 
 
 
 **Build the Fortran Source Code**

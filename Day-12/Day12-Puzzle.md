@@ -126,7 +126,7 @@ pj-fs
 start-RW
 ```
 
-**Anser needed** : How many paths through this cave system are there
+**Answer needed** : How many paths through this cave system are there
 that visit small caves at most once?
 
 **Build the Fortran Source Code**
@@ -146,7 +146,7 @@ fpm run aoc_day12_p1
 **Task**
 
 
-**Anser needed** : 
+**Answer needed** : 
 
 
 **Build the Fortran Source Code**
