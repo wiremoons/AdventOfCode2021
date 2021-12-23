@@ -1,16 +1,16 @@
 ! Advent of Code 2021 : https://adventofcode.com/2021
-! Puzzle for Day 21 part 01 :
+! Puzzle for Day 21 part 02 :
 ! Build (or run) with:
-! gfortran -static-libgcc -o aoc_day21_p1 aoc_day21_p1.f90
-! fpm run aoc_day21_p1
+! gfortran -static-libgcc -o aoc_day21_p2 aoc_day21_p2.f90
+! fpm run aoc_day21_p2
 
-program aoc_day21_p1
+program aoc_day21_p2
 
     use, intrinsic :: iso_fortran_env, stderr => error_unit
     implicit none
 
     ! Declare and set constants the AOC day and part
-    integer, parameter :: day = 21, part = 1
+    integer, parameter :: day = 21, part = 2
     
     ! Variables to track and manage the program
     integer :: turns=1,rollscore=0,roll_count=0
@@ -47,16 +47,13 @@ program aoc_day21_p1
     
     ! start with Player 1
     p1%next = .true.
-    p1%next = .true.
     
     ! run for TEST positions
-    do while (p1%score < 1000 .and. p2%score < 1000)
-        rollscore = next_roll() + next_roll() + next_roll()
+    do while (p1%score < 21 .and. p2%score < 21)
+        rollscore = next_roll_u1() + next_roll_u1() + next_roll_u1()
         totalscore = totalscore + rollscore
         roll_count = roll_count + 3
             	        
-        write (*, '(A,I0,A,I0,A,I0,A)') "Total turns are: '",turns,"' with scores of: '",rollscore,"' [total: '",totalscore,"']"
-        
         if (p1%next) then
         	p1%roll_total = p1%roll_total + 1
         	p1%move = next_position(p1%position,rollscore)
@@ -73,22 +70,30 @@ program aoc_day21_p1
 			p2%next = .false.
         end if
         
-        write (*,'(A,I0)') " > Total rolls performed: ",roll_count
-        write (*,'(A,I0,A,I0)') " > Player 1 position: ",p1%position," and Player 2 position: ",p2%position
-        write (*,'(A,I0,A,I0)') " > Player 1 turns: ",p1%roll_total," and Player 2 position: ",p2%roll_total
-		write (*,'(A,I0,A,I0,/)') " > Player 1 score: ",p1%score," and Player 2 score: ",p2%score
+        ! uncomment for updates on each loop
+        !write (*,'(A,I0)') " > Total rolls performed: ",roll_count
+        !write (*,'(A,I0,A,I0)') " > Player 1 position: ",p1%position," and Player 2 position: ",p2%position
+        !write (*,'(A,I0,A,I0)') " > Player 1 turns: ",p1%roll_total," and Player 2 position: ",p2%roll_total
+		!write (*,'(A,I0,A,I0,/)') " > Player 1 score: ",p1%score," and Player 2 score: ",p2%score
         turns = turns + 1
     end do
+
+	! display a summary    
+	write (*,'(A,I0)') "Total rolls performed: ",roll_count
+	write (*,'(A,I0,A,I0)') " > Player 1 position: ",p1%position," and Player 2 position: ",p2%position
+	write (*,'(A,I0,A,I0)') " > Player 1 turns: ",p1%roll_total," and Player 2 position: ",p2%roll_total
+	write (*,'(A,I0,A,I0,/)') " > Player 1 score: ",p1%score," and Player 2 score: ",p2%score
     
+    ! winner exists as loop ended - which player lost?
     if (p2%next) then
-    	print *, "Player 2 lost."
+    	write (*,'(A)') "Player 2 lost."
     	part1_answer = roll_count * p2%score
     else
-    	print *, "Player 1 lost."
+    	write (*,'(A)') "Player 1 lost."
     	part1_answer = roll_count * p1%score
     end if
 
-	write (*,'(A,I0)') " Part One answer :",part1_answer
+	write (*,'(A,I0,/)') " » Part One answer : ",part1_answer
 
 contains
 
@@ -101,46 +106,69 @@ contains
         print *, ""
     end subroutine display_welcome
 
+
     ! Provide the next dice roll value where values are in sequence between 1 - 100
-    function next_roll()
+    function next_roll_u1()
         implicit none
-        integer :: next_roll
+        integer :: next_roll_u1
         integer, save :: dice_status=1
 
-		! Check the dice do not reach the 100 limit on last roll
+		! Check the dice has not reach the 100 limit on last roll
 		if (dice_status > 100) then
 			dice_status = 1
 		end if
 		
-		next_roll = dice_status
-				
-		print *, "Dice roll is: ",dice_status
-		
+		next_roll_u1 = dice_status		
 		! increment the dice ready for next request
 		dice_status = dice_status + 1
-		 
-    end function next_roll
+    end function next_roll_u1
     
-    ! calculate the position score for the player
+        ! Provide the next dice roll value where values are in sequence between 1 - 100
+    function next_roll_u2()
+        implicit none
+        integer :: next_roll_u2
+        integer, save :: dice_status=2
+
+		! Check the dice has not reach the 100 limit on last roll
+		if (dice_status > 100) then
+			dice_status = 2
+		end if
+		
+		next_roll_u2 = dice_status		
+		! increment the dice ready for next request
+		dice_status = dice_status + 2
+    end function next_roll_u2
+    
+        ! Provide the next dice roll value where values are in sequence between 1 - 100
+    function next_roll_u3()
+        implicit none
+        integer :: next_roll_u3
+        integer, save :: dice_status=3
+
+		! Check the dice has not reach the 100 limit on last roll
+		if (dice_status > 100) then
+			dice_status = 3
+		end if
+		
+		next_roll_u3 = dice_status		
+		! increment the dice ready for next request
+		dice_status = dice_status + 3
+    end function next_roll_u3
+    
+    
+    ! calculate the next position based on the last position and current dice role score
     function next_position(position,rollscore)
         implicit none
         integer, intent(in) :: position,rollscore
         integer :: next_position,t
         
         t = position + rollscore
-        print *, "Current position: ",position," with roll score of: ",rollscore," is total: ",t
-
 		next_position = MOD(t,10)
-		
-		print *, "MOD 10 positon is: ",next_position
 		
 		if (next_position == 0) then
 			next_position = 10
 		end if
-				
-		print *, "New Position: ",next_position
-		
     end function next_position
 
 
-end program aoc_day21_p1
+end program aoc_day21_p2
